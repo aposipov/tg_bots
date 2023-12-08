@@ -3,4 +3,4 @@ build:
         docker build -t bot_g4f .
 
 run:
-        docker run -d bot_g4f --restart=unless-stopped
+        docker run -d --restart=unless-stopped bot_g4f
