@@ -1,0 +1,5 @@
+
+*id | username | full_name | bot_id | nameBot | lang | about
+
+
+
