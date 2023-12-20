@@ -26,8 +26,8 @@ async def process_clear_command(message: Message):
 
 @router.message()
 async def send_welcome(message: Message):
-    print(message)
-    print(message.from_user.id)
+    # print(message)
+    # print(message.from_user.id)
     user_id = message.from_user.id
     user_input = message.text
 
