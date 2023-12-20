@@ -7,3 +7,5 @@ build:
 
 run:
 		docker run -d --restart=unless-stopped bot_g4f
+
+clear:

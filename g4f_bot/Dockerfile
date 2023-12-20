@@ -1,9 +1,9 @@
 FROM python:3.11
 
-WORKDIR /usr/src/app
+WORKDIR /bot
 
-COPY srcs .
+COPY core_bot .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD [ "python", "bot_test.py" ]
+CMD [ "python", "main.py" ]
