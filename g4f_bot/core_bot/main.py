@@ -1,25 +1,14 @@
 import logging
 import asyncio
+import sys
 from aiogram import Bot, Dispatcher
-from aiogram.filters import CommandStart
-from aiogram.types import Message
 from config import BOT_TOKEN, ADMIN_ID, cmds, greeting, about
 from handlers import start_handler, cmd_handler, msg_handler
 
-# Включите логирование
-logging.basicConfig(level=logging.INFO)
-
-# Инициализация бота
-bot = Bot(BOT_TOKEN)
-dp = Dispatcher()
-
-
-# @dp.message(CommandStart())
-# async def cmd_start(message: Message) -> None:
-#     await message.answer("Спасибо! Если будут вопросы наберите /help")
-
 
 async def main():
+    bot = Bot(BOT_TOKEN)
+    dp = Dispatcher()
     dp.include_router(start_handler.router)
     dp.include_router(cmd_handler.router)
     dp.include_router(msg_handler.router)
@@ -31,6 +20,10 @@ async def main():
     logging.info("STOP!")
 
 
-# Запуск бота
 if __name__ == '__main__':
-    asyncio.run(main())
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout,
+                        format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
+    try:
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        logging.error("Bot stopped!")

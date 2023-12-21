@@ -7,4 +7,6 @@ router = Router()
 
 @router.message(CommandStart())
 async def cmd_start(message: Message) -> None:
-    await message.answer("Спасибо! Если будут вопросы наберите /help")
+    await message.answer(text=
+                         "Доброго времени суток!\n"
+                         "Если будут вопросы наберите /help")

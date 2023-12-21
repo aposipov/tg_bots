@@ -17,11 +17,11 @@ def trim_history(history, max_length=4096):
     return history
 
 
-@router.message(Command(commands="clear"))
+@router.message(Command(commands="restart"))
 async def process_clear_command(message: Message):
     user_id = message.from_user.id
     conversation_history[user_id] = []
-    await message.reply("История диалога очищена.")
+    await message.reply("Контекст истории диалога очищен.")
 
 
 @router.message()
@@ -39,6 +39,7 @@ async def send_welcome(message: Message):
 
     chat_history = conversation_history[user_id]
 
+    await message.reply("Собираю данные! Готовлю ответ!")
     try:
         response = await g4f.ChatCompletion.create_async(
             model=g4f.models.default,
@@ -48,8 +49,8 @@ async def send_welcome(message: Message):
         chat_gpt_response = response
     except Exception as e:
         print(f"{g4f.Provider.GeekGpt.__name__}:", e)
-        chat_gpt_response = "Упс, что-то пошло не так. Попробуйте еще раз! \
-Или напишите запрос иначе!"
+        chat_gpt_response = "Упс, что-то пошло не так. " \
+                            "Попробуйте еще раз! Или напишите запрос иначе!"
 
     conversation_history[user_id].append({"role": "assistant", "content": chat_gpt_response})
     print(conversation_history)
