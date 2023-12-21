@@ -1,14 +1,19 @@
+# https://github.com/xtekky/gpt4free
+
 import logging
 import asyncio
 import sys
 from aiogram import Bot, Dispatcher
-from config import BOT_TOKEN, ADMIN_ID, cmds, greeting, about
+from config import BOT_TOKEN, cmds, greeting, about
 from handlers import start_handler, cmd_handler, msg_handler
+
+bot = Bot(BOT_TOKEN)
+dp = Dispatcher()
 
 
 async def main():
-    bot = Bot(BOT_TOKEN)
-    dp = Dispatcher()
+    # bot = Bot(BOT_TOKEN)
+    # dp = Dispatcher()
     dp.include_router(start_handler.router)
     dp.include_router(cmd_handler.router)
     dp.include_router(msg_handler.router)

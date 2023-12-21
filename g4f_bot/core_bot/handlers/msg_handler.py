@@ -2,6 +2,7 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
 import g4f
+
 router = Router()
 
 # Словарь для хранения истории разговоров
@@ -26,6 +27,7 @@ async def process_clear_command(message: Message):
 
 @router.message()
 async def send_welcome(message: Message):
+    from g4f_bot.core_bot.main import bot
     # print(message)
     # print(message.from_user.id)
     user_id = message.from_user.id
@@ -45,6 +47,7 @@ async def send_welcome(message: Message):
             model=g4f.models.default,
             messages=chat_history,
             provider=g4f.Provider.GeekGpt,
+            # provider=g4f.Provider.ChatBase,
         )
         chat_gpt_response = response
     except Exception as e:
@@ -56,4 +59,5 @@ async def send_welcome(message: Message):
     print(conversation_history)
     length = sum(len(message["content"]) for message in conversation_history[user_id])
     print(length)
+    # await bot.edit_message_text("SOME TEXT", chat_id=message.chat.id, message_id=message.message_id)
     await message.answer(chat_gpt_response)
