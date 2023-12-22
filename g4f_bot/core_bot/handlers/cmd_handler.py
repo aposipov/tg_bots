@@ -18,14 +18,16 @@ class Report(StatesGroup):
 @router.message(Command(commands='cancel'))
 async def cmd_report(message: Message, state: FSMContext) -> None:
     await state.clear()
-    await message.reply("canceled!")
+    await message.reply("Отменено! Можете продолжать задавать вопросы!")
 
 
 @router.message(Command(commands='help'))
 async def cmd_help(message: Message) -> None:
-    text = "/start - lunch bot\n\
-/report - write report\n\
-/clear - clear context"
+    text = "/start - запуск бота\n" \
+           "/report - задать вопрос\n" \
+           "/cancel - отменить обращение\n" \
+           "/restart - очистить историю диалога\n" \
+           "/about - о боте"
     await message.answer(text)
 
 
@@ -41,14 +43,15 @@ async def cmd_report(message: Message, state: FSMContext) -> None:
 async def fsm_report(message: Message, state: FSMContext) -> None:
     report = message.text
     if len(report) < 9:
-        await message.answer("fill you problem!!!")
+        await message.answer("Слишком мало символов, опишите вашу проблему! "
+                             "Или отмените /cancel")
     else:
         # await message.answer(report)
         await bot.send_message(chat_id=ADMIN_ID,
-                               text='Текст сообщения:\n' +
-                                    report + '\n' +
+                               text='report:\n' +
+                                    report + '\n' + 'username: ' +
                                     '@' + message.from_user.username)
-        await message.answer("thanks!")
+        await message.answer("Благодарим за ваше обращение!")
         await state.clear()
 
 
@@ -69,4 +72,6 @@ async def cmd_report(message: Message, command: CommandObject) -> None:
 
 @router.message(Command(commands='about'))
 async def cmd_report(message: Message) -> None:
-    await message.reply("Еще не придумал!")
+    await message.reply("Я - твой личный AI-ассистент! "
+                        "Я здесь, чтобы помочь тебе с информацией, "
+                        "заданиями и просто быть твоим виртуальным помощником!")

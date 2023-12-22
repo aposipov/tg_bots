@@ -12,7 +12,8 @@ cmds = [
 	BotCommand(command="help", description="помощь"),
 	BotCommand(command="restart", description="очистить историю"),
 	BotCommand(command="report", description="задать вопрос"),
-	BotCommand(command="support", description="написать в поддержку"),
+	BotCommand(command="cancel", description="отменить обращение в поддержку"),
+	# BotCommand(command="support", description="написать в поддержку"),
 	BotCommand(command="about", description="обо мне"),
 ]
 
