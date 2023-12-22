@@ -15,6 +15,12 @@ class Report(StatesGroup):
     fill_report = State()
 
 
+@router.message(Command(commands='cancel'))
+async def cmd_report(message: Message, state: FSMContext) -> None:
+    await state.clear()
+    await message.reply("canceled!")
+
+
 @router.message(Command(commands='help'))
 async def cmd_help(message: Message) -> None:
     text = "/start - lunch bot\n\
@@ -25,12 +31,13 @@ async def cmd_help(message: Message) -> None:
 
 @router.message(Command(commands='report'))
 async def cmd_report(message: Message, state: FSMContext) -> None:
-    await message.answer("Напишите вашу проблему")
     await state.set_state(Report.fill_report)
+    await message.answer("Напишите вашу проблему")
     # await message.reply("Спасибо")
 
 
-@router.message(StateFilter(Report.fill_report))
+# @router.message(StateFilter(Report.fill_report))
+@router.message(Report.fill_report)
 async def fsm_report(message: Message, state: FSMContext) -> None:
     report = message.text
     if len(report) < 9:

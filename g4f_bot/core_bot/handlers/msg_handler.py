@@ -9,6 +9,9 @@ router = Router()
 conversation_history = {}
 
 
+def check_provider():
+    pass
+
 # Функция для обрезки истории разговора
 def trim_history(history, max_length=4096):
     current_length = sum(len(message["content"]) for message in history)
@@ -42,12 +45,15 @@ async def send_welcome(message: Message):
     chat_history = conversation_history[user_id]
 
     await message.reply("Собираю данные! Готовлю ответ!")
+    # check response for change provider
     try:
         response = await g4f.ChatCompletion.create_async(
             model=g4f.models.default,
             messages=chat_history,
-            provider=g4f.Provider.GeekGpt,
+            # provider=g4f.Provider.GeekGpt,
             # provider=g4f.Provider.ChatBase,
+            provider=g4f.Provider.ChatgptAi,
+            # provider=g4f.Provider.ChatgptX, not work
         )
         chat_gpt_response = response
     except Exception as e:
