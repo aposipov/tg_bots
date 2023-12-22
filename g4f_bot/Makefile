@@ -3,9 +3,12 @@ all:
 		@echo "build and run"
 
 build:
-		docker build -t bot_g4f .
+		docker build -t g4f_bot .
 
-run:
-		docker run -d --restart=unless-stopped bot_g4f
+run:	build
+		docker run --name g4f_cont -v $PWD/core_bot/data:/bot/data \
+		-d --restart=unless-stopped g4f_bot
 
 clear:
+		docker stop g4f_cont
+		docker container rm g4f_cont

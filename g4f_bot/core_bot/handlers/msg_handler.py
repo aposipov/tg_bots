@@ -12,6 +12,7 @@ conversation_history = {}
 def check_provider():
     pass
 
+
 # Функция для обрезки истории разговора
 def trim_history(history, max_length=4096):
     current_length = sum(len(message["content"]) for message in history)
@@ -30,7 +31,7 @@ async def process_clear_command(message: Message):
 
 @router.message()
 async def send_welcome(message: Message):
-    from g4f_bot.core_bot.main import bot
+    # from g4f_bot.core_bot.main import bot
     # print(message)
     # print(message.from_user.id)
     user_id = message.from_user.id
@@ -51,8 +52,8 @@ async def send_welcome(message: Message):
             model=g4f.models.default,
             messages=chat_history,
             # provider=g4f.Provider.GeekGpt,
-            # provider=g4f.Provider.ChatBase,
-            provider=g4f.Provider.ChatgptAi,
+            provider=g4f.Provider.ChatBase,
+            # provider=g4f.Provider.ChatgptAi,
             # provider=g4f.Provider.ChatgptX, not work
         )
         chat_gpt_response = response
