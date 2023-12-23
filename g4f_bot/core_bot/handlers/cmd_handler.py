@@ -9,7 +9,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 # from aiogram.fsm.storage.memory import MemoryStorage
 # from g4f_bot.core_bot.main import bot
-from main import bot
+# from main import bot
 
 router = Router()
 
@@ -37,13 +37,14 @@ async def cmd_help(message: Message) -> None:
 @router.message(Command(commands='report'))
 async def cmd_report(message: Message, state: FSMContext) -> None:
     await state.set_state(Report.fill_report)
-    await message.answer("Напишите вашу проблему")
+    await message.answer("Напишите вашу проблему. Для отмены нажмите /cancel")
     # await message.reply("Спасибо")
 
 
 # @router.message(StateFilter(Report.fill_report))
 @router.message(Report.fill_report)
 async def fsm_report(message: Message, state: FSMContext) -> None:
+    from main import bot
     report = message.text
     if len(report) < 9:
         await message.answer("Слишком мало символов, опишите вашу проблему! "
@@ -60,6 +61,7 @@ async def fsm_report(message: Message, state: FSMContext) -> None:
 
 @router.message(Command(commands='support'))
 async def cmd_report(message: Message, command: CommandObject) -> None:
+    from main import bot
     input_text = command.args
     print(message.from_user.username, message.chat.id)
     if command.args is None:

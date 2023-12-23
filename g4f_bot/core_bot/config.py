@@ -15,6 +15,7 @@ cmds = [
 	BotCommand(command="cancel", description="отменить обращение в поддержку"),
 	# BotCommand(command="support", description="написать в поддержку"),
 	BotCommand(command="about", description="обо мне"),
+	BotCommand(command="provider", description="в разработке"),
 ]
 
 # bot.set_my_description
