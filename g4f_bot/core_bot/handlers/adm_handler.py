@@ -21,6 +21,16 @@ async def shout_list(text: str):
 				continue
 
 
+@router.message(Command(commands='adm'))
+async def shout_handler(message: Message):
+	if str(message.from_user.id) != ADMIN_ID:
+		await message.answer("⚠️ FATAL ERROR! ⚠️")
+	else:
+		await message.answer("⚠️\n "
+		                     "/shout\n"
+		                     "/adm ")
+
+
 @router.message(Command(commands='shout'))
 async def shout_handler(message: Message, command: CommandObject):
 	# print(message.from_user.id)

@@ -51,9 +51,9 @@ async def send_welcome(message: Message):
         response = await g4f.ChatCompletion.create_async(
             model=g4f.models.default,
             messages=chat_history,
-            # provider=g4f.Provider.GeekGpt,
-            # provider=g4f.Provider.ChatBase, # slow
-            provider=g4f.Provider.ChatgptAi,  # normal time
+            # provider=g4f.Provider.GeekGpt,  # norm
+            provider=g4f.Provider.ChatBase,  # slow
+            # provider=g4f.Provider.ChatgptAi,  # normal time
             # provider=g4f.Provider.ChatgptX, not work
         )
         chat_gpt_response = response
