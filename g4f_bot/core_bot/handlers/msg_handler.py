@@ -26,7 +26,7 @@ def trim_history(history, max_length=4096):
 async def process_clear_command(message: Message):
     user_id = message.from_user.id
     conversation_history[user_id] = []
-    await message.reply("Контекст истории диалога очищен.")
+    await message.reply("✅ Контекст истории диалога очищен.")
 
 
 @router.message()
@@ -45,7 +45,7 @@ async def send_welcome(message: Message):
 
     chat_history = conversation_history[user_id]
 
-    await message.reply("Собираю данные! Готовлю ответ!")
+    await message.reply("🧐 Собираю данные! Готовлю ответ!")
     # check response for change provider
     try:
         response = await g4f.ChatCompletion.create_async(
@@ -59,7 +59,7 @@ async def send_welcome(message: Message):
         chat_gpt_response = response
     except Exception as e:
         print(f"{g4f.Provider.GeekGpt.__name__}:", e)
-        chat_gpt_response = "Упс, что-то пошло не так. " \
+        chat_gpt_response = "⚠️ Упс, что-то пошло не так. " \
                             "Попробуйте еще раз! Или напишите запрос иначе! " \
                             "Возможно ошибки на стороне провайдера и нужно подождать!"
 

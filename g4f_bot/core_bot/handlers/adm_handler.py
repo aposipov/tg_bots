@@ -25,12 +25,15 @@ async def shout_list(text: str):
 async def shout_handler(message: Message, command: CommandObject):
 	# print(message.from_user.id)
 	# print(message.chat.id)
-	command.args
+	# command.args
 	print(command.args)
 	if str(message.from_user.id) != ADMIN_ID:
-		await message.answer("FATAL ERROR!")
+		await message.answer("⚠️ FATAL ERROR! ⚠️")
 	else:
-		await message.answer("you have admin priviligies!")
-		await shout_list(command.args)
+		if command.args is None:
+			await message.answer("⚠️ you have admin priviligies!")
+		else:
+			await shout_list(command.args)
+			await message.answer("✅ msgs was sended!")
 
 # read_list()

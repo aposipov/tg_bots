@@ -21,7 +21,7 @@ class Report(StatesGroup):
 @router.message(Command(commands='cancel'))
 async def cmd_report(message: Message, state: FSMContext) -> None:
     await state.clear()
-    await message.reply("Отменено! Можете продолжать задавать вопросы!")
+    await message.reply("✅ Отменено! Можете продолжать задавать вопросы!")
 
 
 @router.message(Command(commands='help'))
@@ -37,7 +37,7 @@ async def cmd_help(message: Message) -> None:
 @router.message(Command(commands='report'))
 async def cmd_report(message: Message, state: FSMContext) -> None:
     await state.set_state(Report.fill_report)
-    await message.answer("Напишите вашу проблему. Для отмены нажмите /cancel")
+    await message.answer("⚠️ Напишите вашу проблему. Для отмены нажмите /cancel")
     # await message.reply("Спасибо")
 
 
@@ -47,7 +47,7 @@ async def fsm_report(message: Message, state: FSMContext) -> None:
     from main import bot
     report = message.text
     if len(report) < 9:
-        await message.answer("Слишком мало символов, опишите вашу проблему! "
+        await message.answer("⚠️ Слишком мало символов, опишите вашу проблему! "
                              "Или отмените /cancel")
     else:
         # await message.answer(report)
