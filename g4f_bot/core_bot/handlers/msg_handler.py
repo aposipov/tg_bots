@@ -8,9 +8,19 @@ router = Router()
 # Словарь для хранения истории разговоров
 conversation_history = {}
 
+PROVIDERSET = g4f.Provider.GeekGpt
 
-def check_provider():
-    pass
+
+def set_provider(provider):
+    global PROVIDERSET
+    PROVIDERSET = provider
+    print(PROVIDERSET)
+    # return PROVIDERSET
+
+
+def get_provider():
+    print(PROVIDERSET)
+    return PROVIDERSET
 
 
 # Функция для обрезки истории разговора
@@ -36,6 +46,8 @@ async def send_welcome(message: Message):
     # print(message.from_user.id)
     user_id = message.from_user.id
     user_input = message.text
+    prv_name = PROVIDERSET
+    # print(provider)
 
     if user_id not in conversation_history:
         conversation_history[user_id] = []
@@ -51,8 +63,9 @@ async def send_welcome(message: Message):
         response = await g4f.ChatCompletion.create_async(
             model=g4f.models.default,
             messages=chat_history,
+            provider=prv_name,
             # provider=g4f.Provider.GeekGpt,  # norm
-            provider=g4f.Provider.ChatBase,  # slow
+            # provider=g4f.Provider.ChatBase,  # slow
             # provider=g4f.Provider.ChatgptAi,  # normal time
             # provider=g4f.Provider.ChatgptX, not work
         )
@@ -61,7 +74,8 @@ async def send_welcome(message: Message):
         print(f"{g4f.Provider.GeekGpt.__name__}:", e)
         chat_gpt_response = "⚠️ Упс, что-то пошло не так. " \
                             "Попробуйте еще раз! Или напишите запрос иначе! " \
-                            "Возможно ошибки на стороне провайдера и нужно подождать!"
+                            "Возможно ошибки на стороне провайдера и нужно подождать! " \
+                            "Или сменить провайдера /provider"
 
     conversation_history[user_id].append({"role": "assistant", "content": chat_gpt_response})
     print(conversation_history)

@@ -5,7 +5,7 @@ import asyncio
 import sys
 from aiogram import Bot, Dispatcher
 from config import BOT_TOKEN, cmds, greeting, about
-from handlers import start_handler, cmd_handler, media_handler, adm_handler, msg_handler
+from handlers import start_handler, cmd_handler, media_handler, adm_handler, provider_handler, msg_handler
 
 bot = Bot(BOT_TOKEN)
 dp = Dispatcher()
@@ -22,6 +22,7 @@ async def main():
     # add picture and audio handler
     dp.include_router(media_handler.router)
     dp.include_router(adm_handler.router)
+    dp.include_router(provider_handler.router)
     dp.include_router(msg_handler.router)
     logging.info("BOT IS STARTED!")
     await bot.set_my_commands(cmds)
