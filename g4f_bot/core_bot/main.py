@@ -6,6 +6,7 @@ import sys
 from aiogram import Bot, Dispatcher
 from config import BOT_TOKEN, cmds, greeting, about
 from handlers import start_handler, cmd_handler, media_handler, adm_handler, provider_handler, msg_handler
+from utils.shout import shout
 
 bot = Bot(BOT_TOKEN)
 dp = Dispatcher()
@@ -14,12 +15,11 @@ dp = Dispatcher()
 async def main():
     # bot = Bot(BOT_TOKEN)
     # dp = Dispatcher()
-    await adm_handler.shout_list("Мой сервер был перезапущен! 😵‍💫🙃 "
+    await adm_handler.shout("Мой сервер был перезапущен! 😵‍💫🙃 "
                                  "Ваш контекст истории диалога очищен! "
                                  "Если не хотите получать такие оповещения напишите сюда /report")
     dp.include_router(start_handler.router)
     dp.include_router(cmd_handler.router)
-    # add picture and audio handler
     dp.include_router(media_handler.router)
     dp.include_router(adm_handler.router)
     dp.include_router(provider_handler.router)

@@ -8,14 +8,14 @@ ADMIN_ID = env.str("ADMIN_ID")
 
 # при перезапуске команды обновляются
 cmds = [
-	BotCommand(command="start", description="запуск бота"),
-	BotCommand(command="help", description="помощь"),
+	# BotCommand(command="start", description="запуск бота"),
+	BotCommand(command="help", description="справка"),
 	BotCommand(command="restart", description="очистить историю"),
-	BotCommand(command="report", description="задать вопрос"),
-	BotCommand(command="cancel", description="отменить обращение в поддержку"),
+	BotCommand(command="report", description="задать вопрос или обратиться с предложением"),
+	BotCommand(command="cancel", description="отменить обращение"),
 	# BotCommand(command="support", description="написать в поддержку"),
 	BotCommand(command="about", description="обо мне"),
-	BotCommand(command="provider", description="в разработке"),
+	BotCommand(command="provider", description="сменить провайдера"),
 ]
 
 # bot.set_my_description

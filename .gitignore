@@ -161,3 +161,4 @@ cython_debug/
 /.env
 **/users.csv
 **/all.csv
+**/dev_g4f.db

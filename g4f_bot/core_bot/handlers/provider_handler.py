@@ -12,10 +12,10 @@ router = Router()
 
 def get_keyboard():
 	buttons = [
-		[InlineKeyboardButton(text='g4f.Provider.GeekGpt', callback_data='set_provider_1')],
-		[InlineKeyboardButton(text='g4f.Provider.ChatBase', callback_data='set_provider_2')],
-		[InlineKeyboardButton(text='g4f.Provider.ChatgptAi', callback_data='set_provider_3')],
-		[InlineKeyboardButton(text='g4f.Provider.DeepInfra', callback_data='set_provider_4')]
+		[InlineKeyboardButton(text='Provider -> GeekGpt', callback_data='set_provider_1')],
+		[InlineKeyboardButton(text='Provider -> ChatBase', callback_data='set_provider_2')],
+		[InlineKeyboardButton(text='Provider -> ChatgptAi', callback_data='set_provider_3')],
+		[InlineKeyboardButton(text='Provider -> DeepInfra', callback_data='set_provider_4')]
 		]
 	keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
 	return keyboard
@@ -62,25 +62,25 @@ async def send_random_value(callback: CallbackQuery):
 async def send_random_value(callback: CallbackQuery):
 	provider = g4f.Provider.GeekGpt
 	set_provider(provider)
-	await callback.message.answer(f'✅ {provider} провайдер установлен')
+	await callback.message.answer(f'✅ {provider.url} провайдер установлен')
 
 
 @router.callback_query(F.data == "set_provider_2")
 async def send_random_value(callback: CallbackQuery):
 	provider = g4f.Provider.ChatBase
 	set_provider(provider)
-	await callback.message.answer(f'✅ {provider} провайдер установлен')
+	await callback.message.answer(f'✅ {provider.url} провайдер установлен')
 
 
 @router.callback_query(F.data == "set_provider_3")
 async def send_random_value(callback: CallbackQuery):
 	provider = g4f.Provider.ChatgptAi
 	set_provider(provider)
-	await callback.message.answer(f'✅ {provider} провайдер установлен!')
+	await callback.message.answer(f'✅ {provider.url} провайдер установлен!')
 
 
 @router.callback_query(F.data == "set_provider_4")
 async def send_random_value(callback: CallbackQuery):
 	provider = g4f.Provider.DeepInfra
 	set_provider(provider)
-	await callback.message.answer(f'✅ {provider} провайдер установлен!')
+	await callback.message.answer(f'✅ {provider.url} провайдер установлен!')
