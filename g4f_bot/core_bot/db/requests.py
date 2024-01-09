@@ -14,6 +14,8 @@ from aiogram.types import Message
 #     except Exception as e:
 #         print(f"Error inserting data into the database: {e}")
 
+db_path = 'data/dev_g4f.db'
+
 
 def add_data(message: Message):
     user_id: int = message.from_user.id
@@ -22,7 +24,7 @@ def add_data(message: Message):
     lang: str = message.from_user.language_code
     date = message.date
     try:
-        db = sqlite3.connect('data/dev_g4f.db')
+        db = sqlite3.connect(db_path)
         c = db.cursor()
         c.execute("INSERT INTO g4fusers VALUES (?,?,?,?,?)",
                   (user_id, username, full_name, lang, date))
@@ -33,9 +35,9 @@ def add_data(message: Message):
         print(f'add_data ERROR! {e}')
 
 
-def get_uid() -> list:
+def get_uids() -> list:
     try:
-        db = sqlite3.connect('data/dev_g4f.db')
+        db = sqlite3.connect(db_path)
         c = db.cursor()
         c.execute("SELECT user_id FROM g4fusers")
         u_ids = c.fetchall()
@@ -44,9 +46,9 @@ def get_uid() -> list:
         print(f'get_uid ERROR! {e}')
 
 
-def get_uname() -> list:
+def get_unames() -> list:
     try:
-        db = sqlite3.connect('data/dev_g4f.db')
+        db = sqlite3.connect(db_path)
         c = db.cursor()
         c.execute("SELECT username FROM g4fusers")
         unames = c.fetchall()

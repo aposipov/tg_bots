@@ -1,8 +1,10 @@
 import sqlite3
 
+db_path = '../data/dev_g4f.db'
+
 
 def init_db():
-	db = sqlite3.connect('../data/dev_g4f.db')
+	db = sqlite3.connect(db_path)
 	c = db.cursor()
 	try:
 		c.execute("CREATE TABLE IF NOT EXISTS g4fusers ("
@@ -12,7 +14,7 @@ def init_db():
 		          "lang VARCHAR,"
 		          "date TIMESTAMP)")
 	except Exception as e:
-		print(f'DB ERROR! {e}')
+		print(f'INIT DB ERROR! {e}')
 	db.commit()
 	db.close()
 
