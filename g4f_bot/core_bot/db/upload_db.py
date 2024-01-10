@@ -9,14 +9,16 @@ def db_add(row):
 	user_id: int = row[0]
 	username: str = row[1]
 	full_name: str = row[2]
+	phone: str = 'null'
 	lang: str = row[3]
+	premium: bool = False
 	date = row[4]
 	# print(user_id, username, full_name, lang, date)
 	try:
 		db = sqlite3.connect(db_path)
 		c = db.cursor()
-		c.execute("INSERT INTO g4fusers VALUES (?,?,?,?,?)",
-		          (user_id, username, full_name, lang, date))
+		c.execute("INSERT INTO g4fusers VALUES (NULL,?,?,?,?,?,?,?)",
+		          (user_id, username, full_name, phone, lang, premium, date))
 		db.commit()
 		db.close()
 		print(f'User {user_id} added to DB!')
