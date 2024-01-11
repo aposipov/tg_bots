@@ -2,7 +2,7 @@ import csv
 import sqlite3
 
 path_to_file = '../data/all.csv'
-db_path = '../data/test.db'
+db_path = '../data/dev_g4f.db'
 
 
 def db_add(row):
@@ -17,8 +17,8 @@ def db_add(row):
 	try:
 		db = sqlite3.connect(db_path)
 		c = db.cursor()
-		c.execute("INSERT INTO g4fusers VALUES (NULL,?,?,?,?,?,?,?)",
-		          (user_id, username, full_name, phone, lang, premium, date))
+		c.execute("INSERT INTO g4fusers VALUES (NULL,?,?,?,?,?,NULL,?)",
+		          (user_id, username, full_name, phone, lang, date))
 		db.commit()
 		db.close()
 		print(f'User {user_id} added to DB!')
@@ -40,3 +40,4 @@ def read_file():
 
 
 read_file()
+print("upload OK!")

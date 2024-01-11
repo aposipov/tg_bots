@@ -14,7 +14,7 @@ from aiogram.types import Message
 #     except Exception as e:
 #         print(f"Error inserting data into the database: {e}")
 
-db_path = 'data/g4fusers.db'
+db_path = 'data/dev_g4f.db'
 
 
 def add_data(message: Message):
@@ -64,7 +64,7 @@ def get_unames() -> list:
     try:
         db = sqlite3.connect(db_path)
         c = db.cursor()
-        c.execute("SELECT username FROM g4fusers")
+        c.execute("SELECT id, user_id, username, full_name FROM g4fusers")
         unames = c.fetchall()
         return unames
     except sqlite3.Error as e:

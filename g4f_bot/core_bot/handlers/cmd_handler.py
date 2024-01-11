@@ -24,6 +24,7 @@ async def cmd_help(message: Message) -> None:
     text = "/report - задать вопрос\n" \
            "/cancel - отменить обращение\n" \
            "/restart - очистить историю диалога\n" \
+           "/provider - сменить провайдера" \
            "/about - о боте"
     await message.answer(text)
 
@@ -46,9 +47,10 @@ async def fsm_report(message: Message, state: FSMContext) -> None:
     else:
         # await message.answer(report)
         await bot.send_message(chat_id=ADMIN_ID,
-                               text='report:\n' +
+                               text='📩 report:\n' +
                                     report + '\n' + 'username: ' +
-                                    '@' + message.from_user.username)
+                                    '@' + message.from_user.username + '\n'
+                                    + 'user_id: ' + str(message.from_user.id))
         await message.answer("Благодарим за ваше обращение!")
         await state.clear()
 

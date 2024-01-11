@@ -1,6 +1,6 @@
 import sqlite3
 
-db_path = '../data/test.db'
+db_path = '../data/dev_g4f.db'
 
 
 def init_db():
