@@ -21,7 +21,7 @@ async def cmd_report(message: Message, state: FSMContext) -> None:
 
 @router.message(Command(commands='help'))
 async def cmd_help(message: Message) -> None:
-    text = "/report - задать вопрос\n" \
+    text = "/report - написать в поддержку\n" \
            "/cancel - отменить обращение\n" \
            "/restart - очистить историю диалога\n" \
            "/provider - сменить провайдера" \

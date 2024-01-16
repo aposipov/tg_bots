@@ -5,23 +5,14 @@ from aiogram.filters import Command, CommandObject
 from utils.shout import shout
 from utils.msg import msg
 from db.requests import get_unames
-import csv
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.fsm.context import FSMContext
 
 router = Router()
 
 
-# async def shout_list(text: str):
-# 	from main import bot
-# 	path_to_file = './data/users.csv'
-# 	with open(path_to_file, 'r', encoding='utf-8') as f:
-# 		reader = csv.reader(f, delimiter=';')
-# 		for line in reader:
-# 			if line and line[0].isdigit() and text:
-# 				print(line[0])
-# 				await bot.send_message(chat_id=line[0],
-# 				                 text=text)
-# 			else:
-# 				continue
+class Msguser(StatesGroup):
+    fill_msg = State()
 
 
 @router.message(Command(commands='adm'))
@@ -49,16 +40,30 @@ async def shout_handler(message: Message, command: CommandObject):
 
 
 @router.message(Command(commands='msg'))
-async def msg_handler(message: Message, command: CommandObject):
+async def msg_handler(message: Message, command: CommandObject, state: FSMContext):
 	print(command.args)
+	uname = command.args
 	if str(message.from_user.id) != ADMIN_ID:
 		await message.answer("⚠️ FATAL ERROR! ⚠️")
 	else:
 		if command.args is None:
 			await message.answer("⚠️ you have admin priviligies!")
 		else:
-			await msg(command.args)
-			await message.answer("✅ msg was sended!")
+			await state.update_data(id=uname)
+			await state.set_state(Msguser.fill_msg)
+
+
+@router.message(Msguser.fill_msg)
+async def fsm_msg(message: Message, state: FSMContext) -> None:
+	report = message.text
+	data = await state.get_data()
+	uname = data.get('id')
+	# print(command.args)
+	print(report)
+	# await message.answer(report + '*' + cmd)
+	await msg(uname, report)
+	await message.answer("✅ msg was sended!")
+	await state.clear()
 
 
 @router.message(Command(commands='unames'))

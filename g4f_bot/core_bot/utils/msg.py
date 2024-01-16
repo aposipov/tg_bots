@@ -19,7 +19,10 @@ async def get_uid(uname: str):
 		return None
 
 
-async def msg(uname: str):
+async def msg(uname: str, text: str):
 	from main import bot
-	uid = await get_uid(uname)
-	await bot.send_message(chat_id=uid, text="WhatsUp!")
+	if uname.isdigit():
+		await bot.send_message(chat_id=uname, text=text)
+	else:
+		uid = await get_uid(uname)
+		await bot.send_message(chat_id=uid, text=text)

@@ -10,8 +10,8 @@ ADMIN_ID = env.str("ADMIN_ID")
 cmds = [
 	# BotCommand(command="start", description="запуск бота"),
 	BotCommand(command="help", description="справка"),
-	BotCommand(command="restart", description="очистить историю"),
-	BotCommand(command="report", description="задать вопрос или обратиться с предложением"),
+	BotCommand(command="restart", description="очистить историю диалога"),
+	BotCommand(command="report", description="написать в поддержку"),
 	BotCommand(command="cancel", description="отменить обращение"),
 	# BotCommand(command="support", description="написать в поддержку"),
 	BotCommand(command="about", description="обо мне"),
