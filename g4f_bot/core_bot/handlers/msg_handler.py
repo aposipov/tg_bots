@@ -57,7 +57,7 @@ async def send_welcome(message: Message):
 
     chat_history = conversation_history[user_id]
 
-    await message.reply("🧐 Собираю данные! Готовлю ответ!")
+    reply_message = await message.reply("🧐 Собираю данные! Готовлю ответ!")
     # check response for change provider
     try:
         response = await g4f.ChatCompletion.create_async(
@@ -81,5 +81,5 @@ async def send_welcome(message: Message):
     print(conversation_history)
     length = sum(len(message["content"]) for message in conversation_history[user_id])
     print(length)
-    # await bot.edit_message_text("SOME TEXT", chat_id=message.chat.id, message_id=message.message_id)
+    await reply_message.delete()
     await message.answer(chat_gpt_response)
