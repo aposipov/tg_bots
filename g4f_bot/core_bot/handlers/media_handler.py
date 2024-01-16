@@ -38,7 +38,7 @@ async def voice_handler(message: Message):
 	file_path_ogg = f"{file_path}.ogg"
 	print(file_path_ogg)
 	await bot.download_file(file_path, file_path_ogg)
-	await message.answer("распознавание голосового сообщения 🧐")
+	answer_msg = await message.answer("распознавание голосового сообщения 🧐")
 
 	#convert await
 	audio = AudioSegment.from_ogg(file_path_ogg)
@@ -49,6 +49,7 @@ async def voice_handler(message: Message):
 	#recognize await
 	# try:
 	text = await recognize_google(file_path_wav)
+	await answer_msg.delete()
 	if text:
 		await message.answer(text)
 	else:
