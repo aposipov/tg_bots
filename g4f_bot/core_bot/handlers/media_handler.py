@@ -1,25 +1,8 @@
-# import os
 from aiogram import Router, F
 from aiogram.types import Message
-# import speech_recognition as sr
-# from pydub import AudioSegment
 from utils.voice_u import ogg_to_wav, recognize_google, remove_src
 
 router = Router()
-
-
-# async def recognize_google(file_path_wav):
-# 	recognizer = sr.Recognizer()
-# 	with sr.AudioFile(file_path_wav) as source:
-# 		audio_data = recognizer.record(source)
-# 	print("process")
-# 	try:
-# 		text = recognizer.recognize_google(audio_data, language='ru-RU')
-# 		return text
-# 	except sr.UnknownValueError:
-# 		return None
-# 	except sr.RequestError as e:
-# 		raise ValueError(f"Ошибка при запросе к API распознавания речи: {e}")
 
 
 @router.message(F.photo)
@@ -40,16 +23,7 @@ async def voice_handler(message: Message):
 	print(file_path_ogg)
 	await bot.download_file(file_path, file_path_ogg)
 	answer_msg = await message.answer("распознавание голосового сообщения 🧐")
-
-	#convert await
-	# audio = AudioSegment.from_ogg(file_path_ogg)
-	# # file_path_wav = f"{file_path}.wav"
-	# audio.export(file_path_wav, format="wav")
-	# print(file_path_wav)
 	await ogg_to_wav(file_path)
-
-	#recognize await
-	# try:
 	text = await recognize_google(file_path_wav)
 	await answer_msg.delete()
 	if text:
@@ -57,9 +31,6 @@ async def voice_handler(message: Message):
 	else:
 		await message.answer("⚠️ Не удалось распознать речь!")
 	print('text OK')
-
-	# os.remove(file_path_ogg)
-	# os.remove(file_path_wav)
 	await remove_src(file_path_ogg, file_path_wav)
 
 
