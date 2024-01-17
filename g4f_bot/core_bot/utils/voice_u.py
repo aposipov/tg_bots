@@ -3,7 +3,7 @@ import speech_recognition as sr
 from pydub import AudioSegment
 
 
-async def ogg_to_wav(file_path):
+def ogg_to_wav(file_path):
 	path_ogg = f"{file_path}.ogg"
 	audio = AudioSegment.from_ogg(path_ogg)
 	path_wav = f"{file_path}.wav"
@@ -11,7 +11,7 @@ async def ogg_to_wav(file_path):
 	print(path_wav)
 
 
-async def recognize_google(file_path_wav):
+def recognize_google(file_path_wav):
 	r = sr.Recognizer()
 	with sr.AudioFile(file_path_wav) as source:
 		audio_data = r.record(source)
@@ -25,7 +25,7 @@ async def recognize_google(file_path_wav):
 		raise ValueError(f"Ошибка при запросе к API распознавания речи: {e}")
 
 
-async def remove_src(path_ogg, path_wav):
+def remove_src(path_ogg, path_wav):
 	os.remove(path_ogg)
 	os.remove(path_wav)
 	print("delete src audio files OK")

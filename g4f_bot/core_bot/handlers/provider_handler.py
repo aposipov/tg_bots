@@ -2,7 +2,8 @@ from aiogram import Router, F
 from aiogram.types import Message, InlineKeyboardButton, CallbackQuery
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardMarkup
-from handlers.msg_handler import set_provider, get_provider
+# from handlers.msg_handler import set_provider, get_provider
+from utils.provider_u import set_provider
 from random import randint
 import g4f
 
