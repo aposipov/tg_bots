@@ -45,9 +45,9 @@ def recognize_vosk(file_path_wav):
 			if len(data) == 0:
 				break
 			if rec.AcceptWaveform(data):
-				print(rec.Result())
+				rec.Result()
 			else:
-				print(rec.PartialResult())
+				rec.PartialResult()
 	text = json.loads(rec.FinalResult())
 	return text['text']
 

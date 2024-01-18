@@ -8,7 +8,8 @@ from random import randint
 import g4f
 
 router = Router()
-# PROVIDERS = ['g4f.Provider.GeekGpt', 'g4f.Provider.ChatBase', 'g4f.Provider.ChatgptAi']
+# g4f.Provider.GeekGpt g4f.Provider.ChatBase g4f.Provider.ChatgptAi
+# g4f.Provider.FakeGpt g4f.Provider.Llama2 g4f.Provider.DeepInfra
 cur_prov = 'set_provider_1'
 
 
@@ -23,7 +24,9 @@ def get_keyboard():
 		[InlineKeyboardButton(text='Provider -> GeekGpt', callback_data='set_provider_1')],
 		[InlineKeyboardButton(text='Provider -> ChatBase', callback_data='set_provider_2')],
 		[InlineKeyboardButton(text='Provider -> ChatgptAi', callback_data='set_provider_3')],
-		[InlineKeyboardButton(text='Provider -> DeepInfra', callback_data='set_provider_4')]
+		[InlineKeyboardButton(text='Provider -> FakeGpt', callback_data='set_provider_4')],
+		[InlineKeyboardButton(text='Provider -> DeepInfra', callback_data='set_provider_5')],
+		[InlineKeyboardButton(text='Provider -> Llama2', callback_data='set_provider_6')]
 		]
 	if cur_prov:
 		for row in buttons:
@@ -37,17 +40,7 @@ def get_keyboard():
 
 @router.message(Command('provider'))
 async def prov_handler(message: Message):
-	# builder = InlineKeyboardBuilder()
-	# i = 0
-	# for prv_name in PROVIDERS:
 	await message.answer(f"Смените провайдера если бот долго не отвечает или пишет ошибку! ")
-	                     # f"Текущий провайдер -> \n {get_provider()}")
-	# builder.add(InlineKeyboardButton(text='g4f.Provider.GeekGpt',
-	#                                  callback_data='set_provider_1'))
-	# builder.add(InlineKeyboardButton(text='g4f.Provider.ChatBase',
-	#                                  callback_data='set_provider_2'))
-	# builder.add(InlineKeyboardButton(text='g4f.Provider.ChatgptAi',
-	#                                  callback_data='set_provider_3'))
 	await message.answer(
 		'Выберите провайдера!',
 		reply_markup=get_keyboard()
@@ -77,7 +70,6 @@ async def prov_init_1(callback: CallbackQuery):
 	provider = g4f.Provider.GeekGpt
 	set_prov("set_provider_1")
 	set_provider(provider)
-	# await callback.message.answer(f'✅ {provider} провайдер установлен')
 	await callback.message.answer(text="Провайдер изменен!",
 	                              reply_markup=get_keyboard())
 
@@ -87,7 +79,6 @@ async def prov_init_2(callback: CallbackQuery):
 	provider = g4f.Provider.ChatBase
 	set_prov("set_provider_2")
 	set_provider(provider)
-	# await callback.message.answer(f'✅ {provider} провайдер установлен')
 	await callback.message.answer(text="Провайдер изменен!", reply_markup=get_keyboard())
 	# await callback.answer(text=f"{provider}", show_alert=True)
 
@@ -97,16 +88,32 @@ async def prov_init_3(callback: CallbackQuery):
 	provider = g4f.Provider.ChatgptAi
 	set_prov("set_provider_3")
 	set_provider(provider)
-	# await callback.message.answer(f'✅ {provider} провайдер установлен!')
 	await callback.message.answer(text="Провайдер изменен!",
 	                              reply_markup=get_keyboard())
 
 
 @router.callback_query(F.data == "set_provider_4")
 async def prov_init_4(callback: CallbackQuery):
-	provider = g4f.Provider.DeepInfra
+	provider = g4f.Provider.FakeGpt
 	set_prov("set_provider_4")
 	set_provider(provider)
-	# await callback.message.answer(f'✅ {provider} провайдер установлен!')
+	await callback.message.answer(text="Провайдер изменен!",
+	                              reply_markup=get_keyboard())
+
+
+@router.callback_query(F.data == "set_provider_5")
+async def prov_init_4(callback: CallbackQuery):
+	provider = g4f.Provider.DeepInfra
+	set_prov("set_provider_5")
+	set_provider(provider)
+	await callback.message.answer(text="Провайдер изменен!",
+	                              reply_markup=get_keyboard())
+
+
+@router.callback_query(F.data == "set_provider_6")
+async def prov_init_4(callback: CallbackQuery):
+	provider = g4f.Provider.Llama2
+	set_prov("set_provider_6")
+	set_provider(provider)
 	await callback.message.answer(text="Провайдер изменен!",
 	                              reply_markup=get_keyboard())

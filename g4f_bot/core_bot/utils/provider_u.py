@@ -1,3 +1,4 @@
+import logging
 import g4f
 
 conversation_history = {}
@@ -10,11 +11,6 @@ def set_provider(provider):
 	print(PROVIDERSET)
 
 
-# def get_provider():
-# 	print(PROVIDERSET)
-# 	return PROVIDERSET
-
-
 def trim_history(history, max_length=4096):
 	current_length = sum(len(message["content"]) for message in history)
 	while history and current_length > max_length:
@@ -24,9 +20,9 @@ def trim_history(history, max_length=4096):
 
 
 async def gpt_processing(user_input, user_id):
-	# global conversation_history
 	prv_name = PROVIDERSET
-	print(user_input)
+	# print(user_input)
+	logging.info(f"{user_id}: {user_input}")
 	if user_id not in conversation_history:
 		conversation_history[user_id] = []
 	conversation_history[user_id].append({"role": "user", "content": user_input})
@@ -46,7 +42,8 @@ async def gpt_processing(user_input, user_id):
 							"Возможно ошибки на стороне провайдера и нужно подождать! " \
 							"Или сменить провайдера /provider"
 	conversation_history[user_id].append({"role": "assistant", "content": chat_gpt_response})
+	# print(conversation_history)
 	length = sum(len(message["content"]) for message in conversation_history[user_id])
-	print(length)
-	print(chat_gpt_response)
+	# print(length)
+	# print(chat_gpt_response)
 	return chat_gpt_response
