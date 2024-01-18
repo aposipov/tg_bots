@@ -6,6 +6,7 @@ COPY core_bot .
 
 RUN pip install --upgrade pip &&  \
     pip install --no-cache-dir -r requirements.txt && \
+    apt update && apt install ffmpeg -y && \
     sed -i '42d' /usr/local/lib/python3.11/site-packages/g4f/Provider/__init__.py
 
 CMD [ "python", "main.py" ]
