@@ -1,6 +1,6 @@
 from aiogram import Router, F
 from aiogram.types import Message
-from utils.voice_u import ogg_to_wav, recognize_google, remove_src
+from utils.voice_u import ogg_to_wav, recognize_google, recognize_vosk, remove_src
 from utils.provider_u import gpt_processing
 
 router = Router()
@@ -26,7 +26,8 @@ async def voice_handler(message: Message):
 	await bot.download_file(file_path, file_path_ogg)
 	answer_msg = await message.answer("распознавание голосового сообщения 🧐")
 	ogg_to_wav(file_path)
-	text = recognize_google(file_path_wav)
+	# text = recognize_google(file_path_wav)
+	text = recognize_vosk(file_path_wav)
 	await answer_msg.delete()
 	if text:
 		await message.answer(f"📝 \n{text}")

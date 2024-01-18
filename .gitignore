@@ -159,6 +159,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 /.env
-**/users.csv
-**/all.csv
-**/dev_g4f.db
+
+**/data/
