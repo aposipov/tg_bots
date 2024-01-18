@@ -29,7 +29,7 @@ async def voice_handler(message: Message):
 	text = recognize_google(file_path_wav)
 	await answer_msg.delete()
 	if text:
-		await message.answer(text)
+		await message.answer(f"📝 \n{text}")
 		answer = await gpt_processing(text, user_id)
 		await message.answer(answer)
 	else:
