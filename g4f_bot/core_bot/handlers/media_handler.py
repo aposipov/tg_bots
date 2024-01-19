@@ -22,7 +22,7 @@ async def voice_handler(message: Message):
 	print(file_path)
 	file_path_ogg = f"{file_path}.ogg"
 	file_path_wav = f"{file_path}.wav"
-	print(file_path_ogg)
+	# print(file_path_ogg)
 	await bot.download_file(file_path, file_path_ogg)
 	answer_msg = await message.answer("распознавание голосового сообщения 🧐")
 	ogg_to_wav(file_path)
@@ -35,11 +35,11 @@ async def voice_handler(message: Message):
 		await message.answer(answer)
 	else:
 		await message.answer("⚠️ Не удалось распознать речь!")
-	print('text OK')
+	# print('text OK')
 	remove_src(file_path_ogg, file_path_wav)
 
 
-@router.message(F.content_type.in_({'voice', 'video', 'audio'}))
+@router.message(F.content_type.in_({'video', 'audio'}))
 async def media_handler(message: Message):
 	await message.answer("⚠️ Медиафайлы пока не обрабатываются. "
 		                     "Функция в разработке 😉")

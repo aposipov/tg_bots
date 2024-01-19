@@ -13,7 +13,7 @@ def ogg_to_wav(file_path):
 	audio = AudioSegment.from_ogg(path_ogg)
 	path_wav = f"{file_path}.wav"
 	audio.export(path_wav, format='wav')
-	print(path_wav)
+	# print(path_wav)
 
 
 def recognize_google(file_path_wav):
